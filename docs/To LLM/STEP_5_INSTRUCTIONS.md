@@ -1,0 +1,2 @@
+- make the number of decimal places for the days 6 instead of 2
+- make the decimal component of the displayed days use a grey color, including the decimal point

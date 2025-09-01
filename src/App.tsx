@@ -13,6 +13,35 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  // Function to format numbers with grey decimal portion
+  const formatNumberWithGreyDecimal = (value: number) => {
+    const formatted = value.toFixed(6);
+    const parts = formatted.split('.');
+    const wholeNumber = parts[0];
+    const decimal = parts[1];
+    
+    return (
+      <>
+        <span className="text-yellow-300">{wholeNumber}</span>
+        <span className="text-gray-400">.{decimal}</span>
+      </>
+    );
+  };
+
+  const formatWorkDaysWithGreyDecimal = (value: number) => {
+    const formatted = value.toFixed(6);
+    const parts = formatted.split('.');
+    const wholeNumber = parts[0];
+    const decimal = parts[1];
+    
+    return (
+      <>
+        <span className="text-green-300">{wholeNumber}</span>
+        <span className="text-gray-400">.{decimal}</span>
+      </>
+    );
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-white bg-slate-950">
       <div className="text-center space-y-4">
@@ -21,14 +50,14 @@ function App() {
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-lg">Total Days Remaining:</span>
-              <span className="text-3xl font-bold text-yellow-300 font-['Orbitron'] tracking-wider">
-                {daysData.totalDaysRemaining.toFixed(2)}
+              <span className="text-3xl font-bold font-['Orbitron'] tracking-wider">
+                {formatNumberWithGreyDecimal(daysData.totalDaysRemaining)}
               </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-lg">Work Days Remaining:</span>
-              <span className="text-3xl font-bold text-green-300 font-['Orbitron'] tracking-wider">
-                {daysData.workDaysRemaining.toFixed(2)}
+              <span className="text-3xl font-bold font-['Orbitron'] tracking-wider">
+                {formatWorkDaysWithGreyDecimal(daysData.workDaysRemaining)}
               </span>
             </div>
           </div>

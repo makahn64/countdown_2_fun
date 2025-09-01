@@ -39,9 +39,9 @@ describe('App', () => {
     expect(totalDaysElement).toBeInTheDocument();
     expect(workDaysElement).toBeInTheDocument();
     
-    // Verify they contain numbers with decimal places
-    expect(totalDaysElement?.textContent).toMatch(/\d+\.\d{2}/);
-    expect(workDaysElement?.textContent).toMatch(/\d+\.\d{2}/);
+    // Verify they contain numbers with 6 decimal places
+    expect(totalDaysElement?.textContent).toMatch(/\d+\.\d{6}/);
+    expect(workDaysElement?.textContent).toMatch(/\d+\.\d{6}/);
   });
 
   it('should display Pacific Time information', () => {
