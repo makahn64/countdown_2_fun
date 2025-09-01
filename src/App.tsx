@@ -1,63 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { calculateDaysRemaining } from './utils/dateCalculations';
+import { calculateTimeRemaining } from './utils/dateCalculations';
 
 function App() {
-  const [daysData, setDaysData] = useState(calculateDaysRemaining());
+  const [timeData, setTimeData] = useState(calculateTimeRemaining());
 
   useEffect(() => {
     // Update every second
     const interval = setInterval(() => {
-      setDaysData(calculateDaysRemaining());
+      setTimeData(calculateTimeRemaining());
     }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // Function to format numbers with grey decimal portion
-  const formatNumberWithGreyDecimal = (value: number) => {
-    const formatted = value.toFixed(6);
-    const parts = formatted.split('.');
-    const wholeNumber = parts[0];
-    const decimal = parts[1];
+  // Function to format time as DDD:HH:MM:SS
+  const formatTime = (time: { days: number; hours: number; minutes: number; seconds: number }) => {
+    const days = time.days.toString().padStart(3, '0');
+    const hours = time.hours.toString().padStart(2, '0');
+    const minutes = time.minutes.toString().padStart(2, '0');
+    const seconds = time.seconds.toString().padStart(2, '0');
     
-    return (
-      <>
-        <span className="text-yellow-300">{wholeNumber}</span>
-        <span className="text-gray-400">.{decimal}</span>
-      </>
-    );
-  };
-
-  const formatWorkDaysWithGreyDecimal = (value: number) => {
-    const formatted = value.toFixed(6);
-    const parts = formatted.split('.');
-    const wholeNumber = parts[0];
-    const decimal = parts[1];
-    
-    return (
-      <>
-        <span className="text-green-300">{wholeNumber}</span>
-        <span className="text-gray-400">.{decimal}</span>
-      </>
-    );
+    return `${days}:${hours}:${minutes}:${seconds}`;
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-white bg-slate-950">
-      <div className="text-center space-y-4">
+      <div className="text-center space-y-4 w-full max-w-4xl px-4">
         <div className="bg-slate-900/60 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-slate-700/50">
           <h2 className="text-2xl font-semibold mb-4">Countdown to May 15, 2026</h2>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-lg">Total Days Remaining:</span>
-              <span className="text-3xl font-bold font-['Orbitron'] tracking-wider">
-                {formatNumberWithGreyDecimal(daysData.totalDaysRemaining)}
+              <span className="text-lg">Total Time Remaining:</span>
+              <span className="text-3xl font-bold text-yellow-300 font-mono tracking-wider">
+                {formatTime(timeData.total)}
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-lg">Work Days Remaining:</span>
-              <span className="text-3xl font-bold font-['Orbitron'] tracking-wider">
-                {formatWorkDaysWithGreyDecimal(daysData.workDaysRemaining)}
+              <span className="text-lg">Work Time Remaining:</span>
+              <span className="text-3xl font-bold text-green-300 font-mono tracking-wider">
+                {formatTime(timeData.work)}
               </span>
             </div>
           </div>

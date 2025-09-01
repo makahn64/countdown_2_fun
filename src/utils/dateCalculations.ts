@@ -40,6 +40,13 @@ export interface DaysRemaining {
   workDaysRemaining: number;
 }
 
+export interface TimeRemaining {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 export function calculateDaysRemaining(): DaysRemaining {
   // Get current time in US Pacific timezone
   const now = new Date();
@@ -72,5 +79,41 @@ export function calculateDaysRemaining(): DaysRemaining {
   return {
     totalDaysRemaining,
     workDaysRemaining
+  };
+}
+
+export function calculateTimeRemaining(): { total: TimeRemaining; work: TimeRemaining } {
+  // Get current time in US Pacific timezone
+  const now = new Date();
+  const pacificTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
+  
+  // Calculate total time remaining
+  const totalTimeDiff = TARGET_DATE.getTime() - pacificTime.getTime();
+  const totalDays = Math.floor(totalTimeDiff / (1000 * 3600 * 24));
+  const totalHours = Math.floor((totalTimeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
+  const totalMinutes = Math.floor((totalTimeDiff % (1000 * 3600)) / (1000 * 60));
+  const totalSeconds = Math.floor((totalTimeDiff % (1000 * 60)) / 1000);
+  
+  // Calculate work time remaining (simplified - using work days calculation)
+  const { workDaysRemaining } = calculateDaysRemaining();
+  const workTimeDiff = workDaysRemaining * 24 * 3600 * 1000; // Convert work days to milliseconds
+  const workDays = Math.floor(workTimeDiff / (1000 * 3600 * 24));
+  const workHours = Math.floor((workTimeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
+  const workMinutes = Math.floor((workTimeDiff % (1000 * 3600)) / (1000 * 60));
+  const workSeconds = Math.floor((workTimeDiff % (1000 * 60)) / 1000);
+  
+  return {
+    total: {
+      days: totalDays,
+      hours: totalHours,
+      minutes: totalMinutes,
+      seconds: totalSeconds
+    },
+    work: {
+      days: workDays,
+      hours: workHours,
+      minutes: workMinutes,
+      seconds: workSeconds
+    }
   };
 }

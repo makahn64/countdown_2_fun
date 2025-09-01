@@ -1,0 +1,2 @@
+- Change the days remaining display to a format like DDD:HH:MM:SS
+- Adjust the with of the enclosing view so everything fits
