@@ -1,0 +1,3 @@
+We are going to write a function that when called returns two integers: totalDaysRemaining and workDaysRemaining. This function will get the current date and then calculate the delta in days until May 15, 2026. This value will be totalDaysRemaining. The function will also calculate work days remaining which will be total days minus weekend days (typically 2 per week), minus US holidays between now and May 15, 2026, minus 20 more days for vacation time.
+
+You will call this function and display the results on the home screen underneath "Hello World". Label this values sensibly.
