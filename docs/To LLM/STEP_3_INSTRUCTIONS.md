@@ -1,0 +1,2 @@
+- Remove the "Hello World" text
+- Make the background a radial gradient that is black in the center, and very dark purple (PMS 669C) at the edges.
