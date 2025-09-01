@@ -32,7 +32,7 @@ const US_HOLIDAYS_2024_2026 = [
   new Date('2026-02-16'), // Presidents' Day
 ];
 
-const TARGET_DATE = new Date('2026-05-15');
+const TARGET_DATE = new Date('2026-05-15T00:00:00-08:00'); // May 15, 2026, 12:00 AM Pacific Time
 const VACATION_DAYS = 20;
 
 export interface DaysRemaining {
@@ -41,11 +41,13 @@ export interface DaysRemaining {
 }
 
 export function calculateDaysRemaining(): DaysRemaining {
-  const currentDate = new Date();
+  // Get current time in US Pacific timezone
+  const now = new Date();
+  const pacificTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
   
-  // Calculate total days remaining
-  const timeDiff = TARGET_DATE.getTime() - currentDate.getTime();
-  const totalDaysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  // Calculate total days remaining with decimal precision
+  const timeDiff = TARGET_DATE.getTime() - pacificTime.getTime();
+  const totalDaysRemaining = timeDiff / (1000 * 3600 * 24);
   
   // Calculate work days remaining
   let workDaysRemaining = totalDaysRemaining;
@@ -57,7 +59,7 @@ export function calculateDaysRemaining(): DaysRemaining {
   
   // Subtract US holidays
   const holidaysInRange = US_HOLIDAYS_2024_2026.filter(holiday => 
-    holiday >= currentDate && holiday <= TARGET_DATE
+    holiday >= pacificTime && holiday <= TARGET_DATE
   );
   workDaysRemaining -= holidaysInRange.length;
   

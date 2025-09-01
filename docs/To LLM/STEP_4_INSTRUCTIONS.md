@@ -1,0 +1,3 @@
+- THe work days and remaining days will now include towo decimal places after the number of days. These are fractions of days remaining, based on US pacific time.
+- The screen should update once per second with the new values
+- The numbers should use a font that looks like an LED clock.

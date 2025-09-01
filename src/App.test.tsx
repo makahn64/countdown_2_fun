@@ -1,8 +1,17 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
 describe('App', () => {
+  beforeEach(() => {
+    // Mock timers for testing
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it('should not display Hello World text', () => {
     render(<App />);
     
@@ -20,26 +29,25 @@ describe('App', () => {
     expect(screen.getByText(/Excludes weekends, US federal holidays, and 20 vacation days/)).toBeInTheDocument();
   });
 
-  it('should display numerical values for days', () => {
+  it('should display numerical values with decimal places', () => {
     render(<App />);
     
-    // Verify that numerical values are displayed (they should be positive numbers)
+    // Verify that numerical values are displayed with decimal places
     const totalDaysElement = screen.getByText(/Total Days Remaining:/).nextElementSibling;
     const workDaysElement = screen.getByText(/Work Days Remaining:/).nextElementSibling;
     
     expect(totalDaysElement).toBeInTheDocument();
     expect(workDaysElement).toBeInTheDocument();
     
-    // Verify they contain numbers
-    expect(totalDaysElement?.textContent).toMatch(/\d+/);
-    expect(workDaysElement?.textContent).toMatch(/\d+/);
+    // Verify they contain numbers with decimal places
+    expect(totalDaysElement?.textContent).toMatch(/\d+\.\d{2}/);
+    expect(workDaysElement?.textContent).toMatch(/\d+\.\d{2}/);
   });
 
-  it('should have dark slate background', () => {
+  it('should display Pacific Time information', () => {
     render(<App />);
     
-    // Verify the main container has the slate background class
-    const mainContainer = screen.getByText('Countdown to May 15, 2026').closest('.bg-slate-950');
-    expect(mainContainer).toBeInTheDocument();
+    // Verify Pacific Time information is displayed
+    expect(screen.getByText(/Updates every second • Pacific Time/)).toBeInTheDocument();
   });
 });
