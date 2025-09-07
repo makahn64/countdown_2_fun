@@ -27,7 +27,7 @@ function App() {
     <div className="min-h-screen flex flex-col items-center justify-center text-white bg-slate-950">
       <div className="text-center space-y-4 w-full max-w-4xl px-4">
         <div className="bg-slate-900/60 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-slate-700/50">
-          <h2 className="text-2xl font-semibold mb-4">Countdown to May 15, 2026</h2>
+          <h2 className="text-2xl font-semibold mb-4">Countdown to Big Trip!</h2>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-lg">Total Time Remaining:</span>

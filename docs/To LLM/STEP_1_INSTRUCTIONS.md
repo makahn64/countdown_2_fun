@@ -1,0 +1,2 @@
+- scaffold a new typescript/react project
+- on the main screen simply have a dark purple background with the text "Hello World" centered vertically and horizontally
