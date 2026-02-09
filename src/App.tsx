@@ -31,7 +31,7 @@ function App() {
   // Calculate 2-week periods until May 16, 2026
   const twoWeekPeriods = Math.ceil(timeData.total.days / 14);
 
-return (
+  return (
     <div className="min-h-screen flex flex-col items-center justify-center text-white bg-slate-950">
       <div className="text-center space-y-4 w-full max-w-4xl px-4">
         <div className="bg-slate-900/60 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-slate-700/50">
@@ -56,7 +56,7 @@ return (
               Updates every second • Pacific Time
             </p>
             <p className="mt-1 text-slate-400">
-              {twoWeekPeriods} two-week periods until May 16
+              {twoWeekPeriods} two-week periods until trip
             </p>
           </div>
         </div>
